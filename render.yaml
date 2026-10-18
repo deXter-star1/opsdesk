@@ -1,0 +1,14 @@
+# Live demo on Render's free plan: one web service runs the API and the background worker together.
+# The free disk is wiped whenever the service sleeps (after 15 minutes idle), so the demo data is
+# recreated on every start. 8,000 items keeps the cold start short on the free plan's 0.1 CPU.
+services:
+  - type: web
+    name: opsdesk
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python run.py --host 0.0.0.0 --port $PORT --items 8000 --users 300
+    healthCheckPath: /api/health
+    envVars:
+      - key: OPSDESK_COOKIE_SECURE
+        value: "1"

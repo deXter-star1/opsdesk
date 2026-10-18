@@ -11,7 +11,7 @@ Reference detail behind the [README](../README.md). The reasoning and trade-offs
 - [Authorization](#authorization)
 - [API](#api)
 - [Project layout](#project-layout)
-- [Running the pieces by hand](#running-the-pieces-by-hand)
+- [Running the pieces by hand](#running-the-pieces-by-hand), including [hosting](#hosting)
 - [Performance](#performance)
 
 ## Request lifecycle
@@ -163,6 +163,14 @@ python -m app.worker
 | `OPSDESK_JOB_LEASE_SECONDS` | `30` | Job lease length before another worker may take it |
 | `OPSDESK_STALE_AFTER_HOURS` | `72` | "Going stale" threshold |
 | `OPSDESK_COOKIE_SECURE` | `0` | Set to `1` behind HTTPS |
+
+### Hosting
+
+`render.yaml` deploys the app to Render's free plan as a single web service:
+`python run.py --host 0.0.0.0 --port $PORT` runs the API and the worker together. The free plan has no
+persistent disk and sleeps after 15 minutes idle, so the demo data (8,000 items) is recreated on every start
+and the first visit after a sleep takes about a minute. A real deployment would use a persistent disk or
+PostgreSQL.
 
 ## Performance
 

@@ -25,6 +25,7 @@ BACKEND = ROOT / "backend"
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--host", default="127.0.0.1", help="use 0.0.0.0 to accept outside connections (hosting)")
     ap.add_argument("--reset", action="store_true")
     ap.add_argument("--items", type=int, default=40000)
     ap.add_argument("--users", type=int, default=2000)
@@ -59,7 +60,7 @@ def main() -> int:
         subprocess.run([py, "-m", "app.migrate"], cwd=BACKEND, env=env, check=True)
 
     procs = [
-        subprocess.Popen([py, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", str(args.port)],
+        subprocess.Popen([py, "-m", "uvicorn", "app.main:app", "--host", args.host, "--port", str(args.port)],
                          cwd=BACKEND, env=env),
         subprocess.Popen([py, "-m", "app.worker"], cwd=BACKEND, env=env),
     ]
