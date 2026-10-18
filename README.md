@@ -1,5 +1,7 @@
 # OpsDesk — operational work coordination
 
+[![CI](https://github.com/deXter-star1/opsdesk/actions/workflows/ci.yml/badge.svg)](https://github.com/deXter-star1/opsdesk/actions/workflows/ci.yml)
+
 An internal web app that replaces "chat + spreadsheets + email" for operational requests: customer issues,
 engineering problems, payment investigations, incidents, compliance requests and approval-gated tasks.
 
@@ -13,7 +15,7 @@ system is built to stay correct when many people act on the same item at the sam
 
 ## Quick start
 
-**Prerequisites:** Python 3.11+ (3.13 tested). Node 20+ only if you want to rebuild the frontend —
+**Prerequisites:** Python 3.11+ (CI tests 3.11, 3.13 and 3.14 on Linux, macOS and Windows). Node 20+ only if you want to rebuild the frontend —
 a pre-built bundle is committed in `frontend/dist/`.
 
 ```bash
@@ -67,6 +69,11 @@ cd backend  && python -m unittest discover -s tests -t tests -v   # 51 tests, ~4
 #           (or: pytest)
 cd frontend && npm test                                            # 11 tests, node:test, no extra deps
 ```
+
+GitHub Actions (`.github/workflows/ci.yml`) runs on every push: the backend suite on Linux, macOS and
+Windows with Python 3.11, 3.13 and 3.14; the frontend tests plus a check that the committed bundle matches
+its source; and a start-up check on each OS that launches `python run.py`, logs in as a demo user, lists
+items, waits for the worker to complete a job and (on macOS and Linux) checks that Ctrl+C shuts everything down.
 
 Tests target the behaviours that would be dangerous if wrong, not coverage:
 
