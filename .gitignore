@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Local data (re-create with: python run.py --reset)
+backend/data/
+*.db
+*.db-wal
+*.db-shm
+
+# Node
+frontend/node_modules/
+frontend/e2e/screenshots/
+
+# frontend/dist is committed on purpose so reviewers can run the app without Node.
