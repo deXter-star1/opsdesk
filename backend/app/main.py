@@ -31,6 +31,17 @@ async def lifespan(app):
     await broker.stop()
 
 
+class RevalidatingStaticFiles(StaticFiles):
+    """Asset names don't change between builds (app.js, app.css), so tell browsers to revalidate
+    on every load instead of guessing a cache lifetime and serving a stale bundle after an update.
+    Unchanged files cost a 304 thanks to the ETag/Last-Modified headers StaticFiles already sends."""
+
+    def file_response(self, *args, **kwargs):
+        response = super().file_response(*args, **kwargs)
+        response.headers["Cache-Control"] = "no-cache"
+        return response
+
+
 def _spa_routes() -> list:
     dist = Path(config.settings.static_dir)
     index = dist / "index.html"
@@ -45,7 +56,7 @@ def _spa_routes() -> list:
 
     routes = []
     if (dist / "assets").is_dir():
-        routes.append(Mount("/assets", app=StaticFiles(directory=dist / "assets"), name="assets"))
+        routes.append(Mount("/assets", app=RevalidatingStaticFiles(directory=dist / "assets"), name="assets"))
     routes.append(Route("/{path:path}", spa, methods=["GET"]))
     return routes
 
