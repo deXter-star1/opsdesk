@@ -24,6 +24,8 @@ python run.py                               # migrate, seed 40k items, start API
 ```
 
 Open **http://localhost:8000** and click a demo account (all passwords: `demo1234`).
+If port 8000 is already taken ("address already in use"), run `python run.py --port 8001` and open
+http://localhost:8001 instead.
 
 | Account | Roles | Good for |
 |---|---|---|
@@ -37,7 +39,7 @@ Open **http://localhost:8000** and click a demo account (all passwords: `demo123
 | Sam Thomas | no team | can only raise and follow requests |
 | Asha Admin | admin, Ops lead | **Background jobs** page |
 
-Useful flags: `python run.py --reset` (fresh data), `--items 3000` (small dataset),
+Useful flags: `python run.py --reset` (fresh data), `--items 3000` (small dataset), `--port 8001` (another port),
 `--failure-rate 0.3` (worker randomly fails 30% of jobs so you can watch retries and dead-lettering).
 
 <details>
