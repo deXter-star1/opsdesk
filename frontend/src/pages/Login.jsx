@@ -40,9 +40,15 @@ export function LoginPage() {
 
   return (
     <div className="login">
-      <div className="login-card">
+      <section className="login-hero">
         <div className="brand brand-lg"><span className="brand-mark">✓</span> OpsDesk</div>
-        <p className="muted">Coordinate operational work: who owns it, what state it is in, and what needs attention next.</p>
+        <h1>Every piece of work has an owner.</h1>
+        <p>Coordinate operational work across teams: who owns it, what state it is in, and what needs
+          attention next — kept correct when many people act on it at once.</p>
+      </section>
+      <div className="login-panel">
+      <div className="login-card">
+        <h3>Sign in</h3>
         <form onSubmit={login}>
           <label className="field"><span>Email</span>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username" required />
@@ -66,6 +72,7 @@ export function LoginPage() {
             </li>
           ))}
         </ul>
+      </div>
       </div>
     </div>
   );
