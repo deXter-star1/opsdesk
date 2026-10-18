@@ -8,6 +8,10 @@ history, and the system stays correct when many people act on the same item at o
 
 Built for the Newtonite engineering challenge.
 
+**Live demo: https://opsdesk-ryy9.onrender.com** (password for every demo account: `demo1234`). It runs on a
+free plan: after 15 minutes without visitors it sleeps, so the next visit takes about a minute and starts
+with fresh demo data (8,000 items; the local setup below creates 40,000).
+
 - **[ENGINEERING_DECISIONS.md](ENGINEERING_DECISIONS.md)**: the six decisions that shape the system, and their trade-offs
 - **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**: data model, workflow, API, file layout and settings
 
